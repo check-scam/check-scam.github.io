@@ -213,11 +213,11 @@
     <main class="main-container">
         <div class="checker-box">
             <h1>Công Cụ Kiểm Tra An Toàn</h1>
-            <p>Nhập số điện thoại, tài khoản ngân hàng, liên kết mạng xã hội hoặc tên bạn nghi ngờ để kiểm tra trong cơ sở dữ liệu cảnh báo của cộng đồng.</p>
+            <p>Nhập số điện thoại, tên mạng xã hội, tài khoản ngân hàng, liên kết mạng xã hội hoặc tên bạn nghi ngờ để kiểm tra trong cơ sở dữ liệu cảnh báo của cộng đồng.<br><br>Điền Ví Dụ:<br>FB tên.fb.cần.check<br>STK số.tài.khoản.cần.check<br>nhập.link.cần.check<br>...</p>
             
             <div class="input-group">
                 <span class="icon">🔍</span>
-                <input type="text" id="userInput" placeholder="Nhập thông tin cần kiểm tra...">
+                <input type="text" id="userInput" placeholder="VD: FB tên.fb.cần.check">
             </div>
             
             <button class="check-button" onclick="checkScam()">Kiểm Tra Ngay</button>
@@ -239,42 +239,85 @@
 
         // --- JavaScript cho Logic Kiểm Tra ---
         function checkScam() {
-            // === CƠ SỞ DỮ LIỆU CẢNH BÁO ===
-            // Thêm các số điện thoại hoặc tên lừa đảo vào đây.
-            const scamData = [
-         
-                "1900100co",
-                "nhapthongtincheck"
-            ];
+    const scamData = [
+"FB Ngg Thii Kieuu Vyy",
+"NGUYEN VAN LONG",
+"250001060002105",
+"8017041302215",
+"ĐẶNG HOÀNG VĂN KHƯƠNG",
+"0792403604",
+"LE VAN DUNG",
+"09050579426987",
+"HUYNH THI NGOC LINH",
+"3910118118118",
+"NGUYEN THI TU OANH",
+"7976 2798 888",
+"DO THI HOANG YEN",
+"10031455597",
+"NGUYEN MINH TAI MINH",
+"04101 019720492",
+"9704222084456896	",
+"0773 692685",
+"LE THANH KIEU",
+"5515131",
+"LE THI BICH LY",
+"06025 6936146",
+"PHAM THI KIEU TRANG",
+"490348",
+"21604680",
+"TRAN THI CUC",
+"10324",
+"45030",
+"https://www.facebook.com/profile.php?id=100088329605184&mibextid=LQQJ4d",
+"61802127",
+"691234",
+"61802127",
+"18062721",
+"TRẦN HOÀNG MINH",
+"Tran Minh",
+"Minh Mingg",
+"Minh Bee (Trần Minh)",
+"Minh Peach",
+"Beach Minh",
+"Ming Meach",
+"108896592999",
+"Minh Mingg",
+"0785268204",
+"https://www.facebook.com/profile.php?id=61568906423964&mibextid=LQQJ4d",
+"https://www.facebook.com/profile.php?id=100055366040885&mibextid=LQQJ4d",
+"https://www.facebook.com/profile.php?id=61570012101938",
+"2715205465158",
+"Bùi Thị Kim Nguyệt",
+"030200011112",
+"Nguyễn Minh An (FB)",
+"Bùi Thị Kim Nguyệt",
+"100882920817",
+"https://www.instagram.com/nailsnguyet",
+"FB Ngg Thii Kieuu Vyy"
+    ];
 
+    const userInput = document.getElementById('userInput').value.toLowerCase().trim();
+    const resultDiv = document.getElementById('result');
 
+    resultDiv.style.display = 'block';
 
+    if (userInput === '') {
+        resultDiv.innerHTML = "⚠️ Vui lòng nhập thông tin bạn muốn kiểm tra.";
+        resultDiv.className = '';
+        return;
+    }
 
+    // 🔥 Chuyển toàn bộ danh sách scam sang chữ thường để so sánh đúng
+    const isScam = scamData.some(item => userInput === item.toLowerCase());
 
-
-
-
-
-
-            const userInput = document.getElementById('userInput').value.toLowerCase().trim();
-            const resultDiv = document.getElementById('result');
-            
-            resultDiv.style.display = 'block'; // Hiển thị khung kết quả
-
-            if (userInput === '') {
-                resultDiv.innerHTML = "⚠️ Vui lòng nhập thông tin bạn muốn kiểm tra.";
-                resultDiv.className = '';
-                return;
-            }
-
-            if (scamData.includes(userInput)) {
-                resultDiv.innerHTML = "🚨 Cảnh Báo Lừa Đảo!<br>Thông tin này đã được báo cáo trong hệ thống. Tuyệt đối không giao dịch.";
-                resultDiv.className = 'scam';
-            } else {
-                resultDiv.innerHTML = "✅ An Toàn.<br>Thông tin này chưa có trong dữ liệu cảnh báo của chúng tôi. Tuy nhiên, hãy luôn cẩn trọng trong mọi giao dịch.";
-                resultDiv.className = 'safe';
-            }
-        }
+    if (isScam) {
+        resultDiv.innerHTML = "🚨 Cảnh Báo Lừa Đảo!<br>Thông tin này đã được báo cáo trong hệ thống. Tuyệt đối không giao dịch.";
+        resultDiv.className = 'scam';
+    } else {
+        resultDiv.innerHTML = "✅ An Toàn.<br>Thông tin này chưa có trong dữ liệu cảnh báo của chúng tôi. Tuy nhiên, hãy luôn cẩn trọng trong mọi giao dịch.";
+        resultDiv.className = 'safe';
+    }
+}
     </script>
 
 </body>
