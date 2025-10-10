@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Scammer - Kiểm Tra An Toàn</title>
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary-color: #007bff; /* Xanh dương - Tin cậy */
+            --secondary-color: #28a745; /* Xanh lá - An toàn */
+            --danger-color: #dc3545; /* Đỏ - Cảnh báo */
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-color: #495057;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .logo .shield {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--light-gray);
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-gray);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        /* --- Main Content --- */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            padding: 20px;
+        }
+
+        .checker-box {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .checker-box h1 {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .checker-box p {
+            color: #6c757d;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px 15px 50px; /* Thêm padding trái cho icon */
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .input-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #adb5bd;
+        }
+        
+        .check-button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .check-button:hover {
+            background-color: #0069d9;
+            transform: translateY(-2px);
+        }
+
+        /* --- Result Display --- */
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            display: none; /* Ẩn ban đầu */
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scam {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .safe {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">🛡️ Check<span class="shield">Scammer</span></div>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html">Trang Chủ</a>
+            <a href="checkscam.html">Check Scam</a>
+            <a href="baohiem.html">Danh Sách Admin Đã Cọc Bảo Hiểm</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="checker-box">
+            <h1>Công Cụ Kiểm Tra An Toàn</h1>
+            <p>Nhập số điện thoại, tài khoản ngân hàng, liên kết mạng xã hội hoặc tên bạn nghi ngờ để kiểm tra trong cơ sở dữ liệu cảnh báo của cộng đồng.</p>
+            
+            <div class="input-group">
+                <span class="icon">🔍</span>
+                <input type="text" id="userInput" placeholder="Nhập thông tin cần kiểm tra...">
+            </div>
+            
+            <button class="check-button" onclick="checkScam()">Kiểm Tra Ngay</button>
+            
+            <div id="result"></div>
+        </div>
+    </main>
+
+    <script>
+        // --- JavaScript cho Menu ---
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            if (navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'block';
+            }
+        }
+
+        // --- JavaScript cho Logic Kiểm Tra ---
+        function checkScam() {
+            // === CƠ SỞ DỮ LIỆU CẢNH BÁO ===
+            // Thêm các số điện thoại hoặc tên lừa đảo vào đây.
+            const scamData = [
+         
+                "1900100co",
+                "nhapthongtincheck"
+            ];
+
+
+
+
+
+
+
+
+
+
+            const userInput = document.getElementById('userInput').value.toLowerCase().trim();
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.style.display = 'block'; // Hiển thị khung kết quả
+
+            if (userInput === '') {
+                resultDiv.innerHTML = "⚠️ Vui lòng nhập thông tin bạn muốn kiểm tra.";
+                resultDiv.className = '';
+                return;
+            }
+
+            if (scamData.includes(userInput)) {
+                resultDiv.innerHTML = "🚨 Cảnh Báo Lừa Đảo!<br>Thông tin này đã được báo cáo trong hệ thống. Tuyệt đối không giao dịch.";
+                resultDiv.className = 'scam';
+            } else {
+                resultDiv.innerHTML = "✅ An Toàn.<br>Thông tin này chưa có trong dữ liệu cảnh báo của chúng tôi. Tuy nhiên, hãy luôn cẩn trọng trong mọi giao dịch.";
+                resultDiv.className = 'safe';
+            }
+        }
+    </script>
+
+</body>
+</html>

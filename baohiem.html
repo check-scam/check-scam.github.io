@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Admin Uy Tín</title>
+    <style>
+        /* --- Cài đặt chung --- */
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #0056b3;
+            --background-color: #f4f7f6;
+            --card-background: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        /* --- Header và Menu --- */
+        .navbar {
+            background-color: var(--card-background);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none; /* Ẩn trên màn hình lớn */
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* --- Khung chính chứa danh sách --- */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+        }
+
+        /* --- Tiêu đề chính --- */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        /* --- Danh sách các Admin --- */
+        .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* --- Thẻ thông tin của một Admin --- */
+        .admin-card {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-background);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e9e9e9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .admin-avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            margin-right: 20px;
+        }
+
+        .admin-info {
+            flex-grow: 1;
+        }
+
+        .admin-info h2 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .info-item strong {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-right: 8px;
+            min-width: 70px;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            white-space: nowrap; /* Ngăn nút xuống dòng */
+        }
+
+        .contact-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        /* --- RESPONSIVE CHO THIẾT BỊ DI ĐỘNG --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Ẩn menu mặc định */
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--card-background);
+                position: absolute;
+                top: 70px; /* Chiều cao của navbar */
+                left: 0;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px var(--shadow-color);
+            }
+
+            .nav-links.active {
+                display: flex; /* Hiển thị menu khi active */
+                text-align: center;
+            }
+
+            .nav-links li {
+                padding: 15px 0;
+            }
+
+            .menu-toggle {
+                display: block; /* Hiện nút 3 gạch */
+            }
+
+            .container {
+                padding: 20px 15px;
+                margin-top: 15px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .admin-card {
+                flex-direction: column; /* Xếp dọc các phần tử */
+                text-align: center;
+                padding: 25px 15px;
+            }
+
+            .admin-avatar img {
+                margin: 0 0 15px 0; /* Đẩy avatar lên trên */
+                width: 90px;
+                height: 90px;
+            }
+
+            .admin-info {
+                margin-bottom: 20px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-item strong {
+                margin: 0 0 4px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">Admin Uy Tín</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="checkscam.html">checkscam</a></li>
+            <li><a href="baohiem.html">Danh Sách AD Uy Tín</a></li>
+            
+        </ul>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Danh Sách ADMIN Uy Tín</h1>
+            <p>Các quản trị viên dưới đây là những admin đã cọc bảo hiểm tại CheckScam </p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="admin-list">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            <div class="admin-card">
+                <div class="admin-avatar">
+                    <img src="damtrongnghia.png" alt="Avatar AD">
+                </div>
+                <div class="admin-info">
+                    <h2>Đàm Trọng Nghĩa<br>Cọc: 1m5</h2>
+                    <div class="info-item">
+                        <strong>Dịch vụ:</strong>
+                        <span>DV MXH - LocketGold - CapCutPro - Premium App Khác - Website Bán Hàng - Bio - Profile </span>
+                    </div>
+                    <div class="info-item">
+                    </div>
+                </div>
+                <a href="https://www.facebook.com/profile.php?id=61576009787673" class="contact-button" target="_blank" rel="noopener noreferrer">
+                    Liên Hệ
+                </a>
+            </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <br> <div class="admin-card">
+                <div class="admin-avatar">
+                    <img src="not.png" alt="Avatar AD">
+                </div>
+                <div class="admin-info">
+                    <h2>Đặng Thái Cường<br>Cọc: 500k</h2>
+                    <div class="info-item">
+                        <strong>Dịch vụ:</strong>
+                        <span>Mua - Bán acc liên quân, free fire, pupg,... </span>
+                    </div>
+                    <div class="info-item">
+                    </div>
+                </div>
+                <a href="https://www.facebook.com/dangcuong1411" class="contact-button" target="_blank" rel="noopener noreferrer">
+                    Liên Hệ
+                </a>
+            </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             <br> <div class="admin-card">
+                <div class="admin-avatar">
+                    <img src="not.png" alt="Avatar AD">
+                </div>
+                <div class="admin-info">
+                    <h2>Trần Hữu Quang Vinh<br>Cọc: 1m</h2>
+                    <div class="info-item">
+                        <strong>Dịch vụ:</strong>
+                        <span>Chuyên cung cấp Premium app,...</span>
+                    </div>
+                    <div class="info-item">
+                    </div>
+                </div>
+                <a href="https://www.facebook.com/tran.tai.685729" class="contact-button" target="_blank" rel="noopener noreferrer">
+                    Liên Hệ
+                </a>
+            </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             <br> <div class="admin-card">
+                <div class="admin-avatar">
+                    <img src="not.png" alt="Avatar AD">
+                </div>
+                <div class="admin-info">
+                    <h2>Bàn Thị Ngọc Nhung<br>Cọc: 3m</h2>
+                    <div class="info-item">
+                        <strong>Dịch vụ:</strong>
+                        <span>Sỉ-Lẻ Quần áo, Giày dép, Váy, Son Phấn,... Ship Toàn Quốc</span>
+                    </div>
+                    <div class="info-item">
+                    </div>
+                </div>
+                <a href="https://www.facebook.com/profile.php?id=61566108696874" class="contact-button" target="_blank" rel="noopener noreferrer">
+                    Liên Hệ
+                </a>
+            </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+   <br> </div>
+
+    <script>
+        // --- JavaScript cho Menu 3 gạch ---
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

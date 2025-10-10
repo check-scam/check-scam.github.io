@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Scammer</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        /* Navigation Bar */
+        .navbar-custom {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        /* Section Styling */
+        .section-gap {
+            padding: 60px 0;
+        }
+
+        .section-heading .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-heading .line {
+            width: 80px;
+            height: 4px;
+            background-color: #0d6efd;
+            margin: 0 auto 20px;
+        }
+
+        .section-heading .desc {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Search Form */
+        .form-group input {
+            height: 50px;
+            padding-left: 20px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0d6efd;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+        
+        /* Buttons */
+        .btn-theme {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+        .btn-theme span {
+            position: absolute;
+            display: block;
+        }
+        .btn-theme_primary {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-theme_success {
+            background-color: #198754;
+            color: white;
+        }
+        .btn-theme:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Intro Image */
+        .intro-image img {
+            max-width: 100%;
+        }
+
+        /* Scam List */
+        .scam-list .scam-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+        .scam-list .scam-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: scale(1.02);
+        }
+        .scam-title_icon {
+            color: #dc3545;
+            margin-right: 10px;
+        }
+        .scam-title_link {
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+        .scam-title_link:hover {
+            color: #0d6efd;
+        }
+        .scam-info span {
+            margin-left: 20px;
+            color: #777;
+        }
+
+        /* Service Cards */
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .service-icon {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+        .service-content_title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+        }
+        .service-content_desc {
+            color: #666;
+            margin: 10px 0 20px;
+        }
+        .btn-theme_white {
+            background-color: #0d6efd;
+            color: white;
+            border: 1px solid #0d6efd;
+        }
+        .btn-theme_white:hover {
+            background-color: #0b5ed7;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#">CHECKSCAM</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Trang Chủ <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="checkscam.html">Check Scam<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="baohiem.html">Danh Sách Admin Đã Cọc Bảo Hiểm<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="main" class="main">
+        <div class="section-gap section-intro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading">
+                            <div class="title">
+                                KIỂM TRA &amp; TỐ CÁO SCAMMER
+                            </div>
+                            <div class="line"></div>
+                            <div class="desc">
+                                <p>
+                                Với hơn&nbsp;<strong>1.000+ dữ liệu Scam trên MXH &amp; hàng trăm đơn tố cáo gửi lên mỗi ngày</strong>, sẽ giúp bạn mua bán an toàn hơn khi online !!!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <form method="GET" action="#">
+                                    
+                                    <a href="https://www.facebook.com/profile.php?id=61576009787673" class="btn-theme btn-theme_primary">
+                                        Gửi Tố Cáo Scam
+                                        <span></span>
+                                    </a>
+                                    <a 
+                                        <span></span>
+                                    </a>
+                                </form>
+                            </div>
+                            <div class="col-lg-6">
+                                <div 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <div class="section-heading">
+                            <div class="title" style="font-size: 1.5rem;">
+                                SCAMMER BỊ TỐ NHIỀU NHẤT.
+                            </div>
+                        </div>
+                        <div class="scam-list">
+                            <div class="scam-item d-flex align-items-center py-3 px-4 border bg-white">
+                                <div class="scam-title">
+                                    <span class="scam-title_icon"><i class="fas fa-user-secret"></i></span>
+                                    <a href="" class="scam-title_link">1. Đinh Văn Thắng - Lừa đảo bán tài khoản game</a>
+                                </div>
+                                <div class="scam-info ml-auto">
+                                    <span class="scam-info_time"><i class="fas fa-clock"></i> 21/4/2025</span>
+                                    <span class="scam-info_eye"><i class="fas fa-eye"></i> 8 Đơn</span>
+                                </div>
+                            </div>
+                            <div class="scam-item d-flex align-items-center py-3 px-4 border bg-white">
+                                <div class="scam-title">
+                                    <span class="scam-title_icon"><i class="fas fa-user-secret"></i></span>
+                                    <a href="" class="scam-title_link">2. Trần Ngọc Hương - Giả mạo shop quần áo</a>
+                                </div>
+                                <div class="scam-info ml-auto">
+                                    <span class="scam-info_time"><i class="fas fa-clock"></i> 07/8/2025</span>
+                                    <span class="scam-info_eye"><i class="fas fa-eye"></i> 5 Đơn</span>
+                                </div>
+                            </div>
+                            <div class="scam-item d-flex align-items-center py-3 px-4 border bg-white">
+                                <div class="scam-title">
+                                    <span class="scam-title_icon"><i class="fas fa-user-secret"></i></span>
+                                    <a href="" class="scam-title_link">3. Hoàng Thái Đông - Fake dịch vụ tăng like ảo</a>
+                                </div>
+                                <div class="scam-info ml-auto">
+                                    <span class="scam-info_time"><i class="fas fa-clock"></i> 03/7/2025</span>
+                                    <span class="scam-info_eye"><i class="fas fa-eye"></i> 2 Đơn</span>
+                                </div>
+                            </div>
+                            <div class="scam-item d-flex align-items-center py-3 px-4 border bg-white">
+                                <div class="scam-title">
+                                    <span class="scam-title_icon"><i class="fas fa-user-secret"></i></span>
+                                    <a href="" class="scam-title_link">4. Mai Kim Liên - Tuyển cộng tác viên lừa đảo</a>
+                                </div>
+                                <div class="scam-info ml-auto">
+                                    <span class="scam-info_time"><i class="fas fa-clock"></i> 02/10/2025</span>
+                                    <span class="scam-info_eye"><i class="fas fa-eye"></i> 2 Đơn</span>
+                                </div>
+                            </div>
+                            <div class="scam-item d-flex align-items-center py-3 px-4 border bg-white">
+                                <div class="scam-title">
+                                    <span class="scam-title_icon"><i class="fas fa-user-secret"></i></span>
+                                    <a href="" class="scam-title_link">5. Trần Văn Minh - Buôn bán tài khoản Free Fire</a>
+                                </div>
+                                <div class="scam-info ml-auto">
+                                    <span class="scam-info_time"><i class="fas fa-clock"></i> 07/04/2025</span>
+                                    <span class="scam-info_eye"><i class="fas fa-eye"></i> 1 Đơn</span>
+                                </div>
+                            </div>
+                             </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-gap section-service" style="background-color: #ffffff;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading">
+                            <div class="title">Dịch Vụ Nổi Bật</div>
+                            <div class="line"></div>
+                            <div class="desc">
+                                Các dịch vụ chính của chúng tôi giúp bạn phòng tránh lừa đảo khi giao dịch trực tuyến.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="service-card">
+                                    <div class="service-icon"><i class="fas fa-search"></i></div>
+                                    <div class="service-content">
+                   <br>                     <a href="." class="service-content_title">Check Scammer</a>
+                                        <div class="service-content_desc">Nhập SĐT, STK ngân hàng... vào ô tìm kiếm để kiểm tra thông tin lừa đảo.</div>
+                                    </div>
+                                    <div class="service-action">
+                                        <a href="checkscam.html" class="btn-theme btn-theme_white">Truy Cập <span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="service-card">
+                                    <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+                                    <div class="service-content">
+                                        <a href="#" class="service-content_title">Tố Cáo Lừa Đảo</a>
+                                        <div class="service-content_desc">Cung cấp bằng chứng để tố cáo và đưa kẻ lừa đảo ra ánh sáng.</div>
+                                    </div>
+                                    <div class="service-action">
+                                        <a href="https://www.facebook.com/profile.php?id=61576009787673" class="btn-theme btn-theme_white">Tố Cáo <span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="service-card">
+                                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                                    <div class="service-content">
+                                        <a href="." class="service-content_title">Check AD Có Bảo Hiểm</a>
+                                        <div class="service-content_desc">Kiểm tra các admin dịch được bảo hiểm, đảm bảo an toàn tuyệt đối.</div>
+                                    </div>
+                                    <div class="service-action">
+                                        <a href="baohiem.html" class="btn-theme btn-theme_white">Check Danh Sách<span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="service-card">
+                                    <div class="service-icon"><i class="fas fa-code"></i></div>
+                                    <div class="service-content">
+                                        <a href="#" class="service-content_title">Nguồn MMO Uy Tín</a>
+                                        <div class="service-content_desc">Cung cấp mã nguồn MMO uy tín, giá rẻ, giao dịch nhanh chóng.</div>
+                                    </div>
+                                    <div class="service-action">
+                                        <a href="https://trongnghia1759.github.io/" class="btn-theme btn-theme_white">Truy Cập <span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="global-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông báo</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Chào mừng đến với website Check Scammer! Luôn kiểm tra kỹ thông tin trước khi giao dịch để đảm bảo an toàn. Chúng tôi không chịu trách nhiệm cho các giao dịch của bạn.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đã Hiểu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4" style="background-color: #343a40; color: white;">
+        <p>&copy; 2025 CheckScam. Vì Sự An Toàn Không Gian Mạng.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Tùy chọn: Tự động hiển thị Modal sau một khoảng thời gian
+        $(document).ready(function(){
+            // Mở modal sau 2 giây
+            // setTimeout(function(){
+            //     $("#global-modal").modal('show');
+            // }, 2000);
+        });
+    </script>
+</body>
+
+</html>
